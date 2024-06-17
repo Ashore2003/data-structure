@@ -1,45 +1,47 @@
-#include <gtest/gtest.h>
 #include "trie_hash.h"
+#include <gtest/gtest.h>
 
-class TrieTest : public ::testing::Test {
+class TrieHashTest : public ::testing::Test {
 protected:
-    TrieHash trie;
+  TrieHash trie;
 
-    void SetUp() override {
-        trie.insert("hello");
-        trie.insert("hell");
-        trie.insert("help");
-    }
+  void SetUp() override {
+    trie.insert("hello");
+    trie.insert("hell");
+    trie.insert("help");
+  }
 };
 
-TEST_F(TrieTest, InsertAndSearch) {
-    EXPECT_TRUE(trie.search("hello"));
-    EXPECT_TRUE(trie.search("hell"));
-    EXPECT_FALSE(trie.search("world"));
+TEST_F(TrieHashTest, InsertAndSearch) {
+  EXPECT_TRUE(trie.search("hello"));
+  EXPECT_TRUE(trie.search("hell"));
+  EXPECT_FALSE(trie.search("world"));
 }
 
-TEST_F(TrieTest, DeleteWord) {
-    trie.deleteWord("hello");
-    EXPECT_FALSE(trie.search("hello"));
-    EXPECT_TRUE(trie.search("hell"));
+TEST_F(TrieHashTest, DeleteWord) {
+  trie.deleteWord("hello");
+  EXPECT_FALSE(trie.search("hello"));
+  EXPECT_TRUE(trie.search("hell"));
 
-    // Deleting a non-existing word should not affect the trie.
-    EXPECT_FALSE(trie.deleteWord("nonexisting"));
-    EXPECT_TRUE(trie.search("hell"));
+  // Deleting a non-existing word should not affect the trie.
+  EXPECT_FALSE(trie.deleteWord("nonexisting"));
+  EXPECT_TRUE(trie.search("hell"));
 }
 
-TEST_F(TrieTest, PredictWords) {
-    auto predictions = trie.predictWords("hel");
-    EXPECT_EQ(predictions.size(), 3);
-    EXPECT_TRUE(std::find(predictions.begin(), predictions.end(), "hello") != predictions.end());
-    EXPECT_TRUE(std::find(predictions.begin(), predictions.end(), "help") != predictions.end());
+TEST_F(TrieHashTest, PredictWords) {
+  auto predictions = trie.predictWords("hel");
+  EXPECT_EQ(predictions.size(), 3);
+  EXPECT_TRUE(std::find(predictions.begin(), predictions.end(), "hello") !=
+              predictions.end());
+  EXPECT_TRUE(std::find(predictions.begin(), predictions.end(), "help") !=
+              predictions.end());
 
-    trie.deleteWord("help");
-    predictions = trie.predictWords("hel");
-    EXPECT_EQ(predictions.size(), 2);
+  trie.deleteWord("help");
+  predictions = trie.predictWords("hel");
+  EXPECT_EQ(predictions.size(), 2);
 }
 
-TEST_F(TrieTest, StartsWith) {
-    EXPECT_TRUE(trie.startWith("hel"));
-    EXPECT_FALSE(trie.startWith("hex"));
+TEST_F(TrieHashTest, StartsWith) {
+  EXPECT_TRUE(trie.startWith("hel"));
+  EXPECT_FALSE(trie.startWith("hex"));
 }

@@ -1,5 +1,24 @@
 {
     "version": 4,
+    "cmakeMinimumRequired": {
+        "major": 3,
+        "minor": 5,
+        "patch": 0
+    },
+    "configurePresets": [
+        {
+            "name": "debug",
+            "description": "Use Debug build settings with GNU Make and Conan integration",
+            "hidden": false,
+            "generator": "Unix Makefiles",
+            "binaryDir": "${sourceDir}/build/Debug",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Debug",
+                "CMAKE_POLICY_DEFAULT_CMP0091": "NEW",
+                "CMAKE_TOOLCHAIN_FILE": "${sourceDir}/build/Debug/generators/conan_toolchain.cmake"
+            }
+        }
+    ],
     "vendor": {
         "conan": {}
     },
