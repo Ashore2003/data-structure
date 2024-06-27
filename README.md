@@ -59,8 +59,28 @@ Then execute:
 cmake --preset debug or cmake --preset release
 ```
 
+## Tasks
+
+Implemented
+
+- array
+- vector
+- list
+- queue
+- set
+- trie
+- hash table
+
+Not implemented
+
+- heap
+- deque
+- stack
+- ring buffer
+- some avl...
+- There is no std implementation of the data structure, which can be used on MCUs such as Arduino and ESP32
+- Data structures implemented in C language
+
 ## Final Thoughts
 
  Executable files and  Executable files in buid/Debug or build/Release
-
-
