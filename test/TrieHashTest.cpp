@@ -3,7 +3,7 @@
 
 class TrieHashTest : public ::testing::Test {
 protected:
-  TrieHash trie;
+  userDefineDataStructure::TrieHash trie;
 
   void SetUp() override {
     trie.insert("hello");
@@ -22,8 +22,6 @@ TEST_F(TrieHashTest, DeleteWord) {
   trie.deleteWord("hello");
   EXPECT_FALSE(trie.search("hello"));
   EXPECT_TRUE(trie.search("hell"));
-
-  // Deleting a non-existing word should not affect the trie.
   EXPECT_FALSE(trie.deleteWord("nonexisting"));
   EXPECT_TRUE(trie.search("hell"));
 }

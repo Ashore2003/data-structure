@@ -1,21 +1,29 @@
-# data-structure
+# Data-structure
+
 Use C++ to implement some common data structures, such as array,queue,trie_hash, hash table, linked list, doubly linked list, fully self-balancing tree, etc.
-Warn: Thread safety is not yet supported
-# Package management tools used
-For details, please refer to:
+:warning:️ :construction: Thread safety is not yet supported
+Use Conan as the package manager,For details, please refer to:
 [Conan](https://github.com/conan-io/conan)
-# Use
+
+## How to Use?
+
 first:
+
 ```Bash
 conan install conanfile.py --build=missing --profile=default-debug
 ```
+
 Then:
+
 ```Bash
  cmake --preset debug
  ```
- # Note
+
+## Note
+
  If you want to add multiple CMake preset configurations to your project, such as providing different configurations for different build types (such as Debug and Release) or different platforms, you can define more preset objects in the configurePresets array. Each preset object can specify different settings to suit specific build needs or environments.
  example:
+
  ```JSON
      "configurePresets": [
         {
@@ -44,9 +52,15 @@ Then:
         }
     ],
 ```
+
 Then execute:
+
 ```Bash
 cmake --preset debug or cmake --preset release
 ```
- # Final Thoughts
+
+## Final Thoughts
+
  Executable files and  Executable files in buid/Debug or build/Release
+
+

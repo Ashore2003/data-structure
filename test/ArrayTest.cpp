@@ -3,11 +3,10 @@
 
 class ArrayTest : public ::testing::Test {
 protected:
-  array<int, 5> arr;
+  userDefineDataStructure::Array<int, 5> arr;
 
   void SetUp() override {
-    arr.fill(
-        2); // Initialize all elements to 2 for a controlled test environment.
+    arr.fill(2); 
   }
 };
 
@@ -15,7 +14,7 @@ TEST_F(ArrayTest, AccessWithinBounds) {
   EXPECT_NO_THROW({
     EXPECT_EQ(arr[0], 2);
     EXPECT_EQ(arr[4], 2);
-    arr.at(1); // Should not throw
+    arr.at(1); 
   });
 }
 

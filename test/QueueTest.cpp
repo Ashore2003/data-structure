@@ -3,38 +3,167 @@
 
 class QueueTest : public ::testing::Test {
 protected:
-  Queue<int> queue{5};
+    userDefineDataStructure::Queue<int> queue;
 
-  void SetUp() override {
-    queue.enqueue(1);
-    queue.enqueue(2);
-    queue.enqueue(3);
-  }
+    void SetUp() override {
+        // This method will be called before each test
+        // You can do any set-up work for each test here.
+    }
+
+    void TearDown() override {
+        // This method will be called after each test
+        // You can do any clean-up work for each test here.
+    }
 };
 
-TEST_F(QueueTest, EnqueueDequeueTest) {
-  ASSERT_NO_THROW(queue.enqueue(4));
-  ASSERT_NO_THROW(queue.enqueue(5));
-  ASSERT_THROW(queue.enqueue(6), std::runtime_error); 
-  ASSERT_EQ(queue.front(), 1);
-  ASSERT_NO_THROW(queue.dequeue());
-  ASSERT_EQ(queue.front(), 2);
+// Test default constructor
+TEST_F(QueueTest, DefaultConstructor) {
+    EXPECT_TRUE(queue.empty());
+    EXPECT_EQ(queue.size(), 0);
 }
 
-TEST_F(QueueTest, FrontEmptyTest) {
-  ASSERT_EQ(queue.front(), 1);
-  queue.dequeue();
-  queue.dequeue();
-  queue.dequeue();
-  ASSERT_THROW(queue.front(), std::runtime_error);
-  ASSERT_TRUE(queue.empty());
+// Test push and front
+TEST_F(QueueTest, PushAndFront) {
+    queue.push(1);
+    EXPECT_EQ(queue.front(), 1);
+    EXPECT_EQ(queue.size(), 1);
+
+    queue.push(2);
+    EXPECT_EQ(queue.front(), 1);
+    EXPECT_EQ(queue.size(), 2);
 }
 
-TEST_F(QueueTest, IteratorTest) {
-  int sum = 0;
-  for (auto it = queue.begin(); it != queue.end(); ++it) {
-    sum += *it;
-  }
-  ASSERT_EQ(sum, 6); 
+// Test push and back
+TEST_F(QueueTest, PushAndBack) {
+    queue.push(1);
+    EXPECT_EQ(queue.back(), 1);
+    EXPECT_EQ(queue.size(), 1);
+
+    queue.push(2);
+    EXPECT_EQ(queue.back(), 2);
+    EXPECT_EQ(queue.size(), 2);
 }
 
+// Test pop
+TEST_F(QueueTest, Pop) {
+    queue.push(1);
+    queue.push(2);
+    queue.push(3);
+
+    queue.pop();
+    EXPECT_EQ(queue.front(), 2);
+    EXPECT_EQ(queue.size(), 2);
+
+    queue.pop();
+    EXPECT_EQ(queue.front(), 3);
+    EXPECT_EQ(queue.size(), 1);
+
+    queue.pop();
+    EXPECT_TRUE(queue.empty());
+}
+
+// Test empty and size
+TEST_F(QueueTest, EmptyAndSize) {
+    EXPECT_TRUE(queue.empty());
+    EXPECT_EQ(queue.size(), 0);
+
+    queue.push(1);
+    EXPECT_FALSE(queue.empty());
+    EXPECT_EQ(queue.size(), 1);
+
+    queue.push(2);
+    EXPECT_FALSE(queue.empty());
+    EXPECT_EQ(queue.size(), 2);
+
+    queue.pop();
+    queue.pop();
+    EXPECT_TRUE(queue.empty());
+    EXPECT_EQ(queue.size(), 0);
+}
+
+// Test copy constructor
+TEST_F(QueueTest, CopyConstructor) {
+    queue.push(1);
+    queue.push(2);
+    queue.push(3);
+
+    userDefineDataStructure::Queue<int> queue2(queue);
+    EXPECT_EQ(queue2.size(), 3);
+    EXPECT_EQ(queue2.front(), 1);
+    EXPECT_EQ(queue2.back(), 3);
+}
+
+// Test move constructor
+TEST_F(QueueTest, MoveConstructor) {
+    queue.push(1);
+    queue.push(2);
+    queue.push(3);
+
+    userDefineDataStructure::Queue<int> queue2(std::move(queue));
+    EXPECT_EQ(queue2.size(), 3);
+    EXPECT_EQ(queue2.front(), 1);
+    EXPECT_EQ(queue2.back(), 3);
+    EXPECT_TRUE(queue.empty());
+}
+
+// Test copy assignment
+TEST_F(QueueTest, CopyAssignment) {
+    queue.push(1);
+    queue.push(2);
+    queue.push(3);
+
+    userDefineDataStructure::Queue<int> queue2;
+    queue2 = queue;
+    EXPECT_EQ(queue2.size(), 3);
+    EXPECT_EQ(queue2.front(), 1);
+    EXPECT_EQ(queue2.back(), 3);
+}
+
+// Test move assignment
+TEST_F(QueueTest, MoveAssignment) {
+    queue.push(1);
+    queue.push(2);
+    queue.push(3);
+
+    userDefineDataStructure::Queue<int> queue2;
+    queue2 = std::move(queue);
+    EXPECT_EQ(queue2.size(), 3);
+    EXPECT_EQ(queue2.front(), 1);
+    EXPECT_EQ(queue2.back(), 3);
+    EXPECT_TRUE(queue.empty());
+}
+
+// Test swap
+TEST_F(QueueTest, Swap) {
+    queue.push(1);
+    queue.push(2);
+
+    userDefineDataStructure::Queue<int> queue2;
+    queue2.push(3);
+    queue2.push(4);
+    queue2.push(5);
+
+    swap(queue, queue2);
+
+    EXPECT_EQ(queue.size(), 3);
+    EXPECT_EQ(queue.front(), 3);
+    EXPECT_EQ(queue.back(), 5);
+
+    EXPECT_EQ(queue2.size(), 2);
+    EXPECT_EQ(queue2.front(), 1);
+    EXPECT_EQ(queue2.back(), 2);
+}
+
+// Test exceptions
+TEST_F(QueueTest, Exceptions) {
+    EXPECT_THROW(queue.front(), std::runtime_error);
+    EXPECT_THROW(queue.back(), std::runtime_error);
+    EXPECT_THROW(queue.pop(), std::runtime_error);
+
+    queue.push(1);
+    queue.pop();
+
+    EXPECT_THROW(queue.front(), std::runtime_error);
+    EXPECT_THROW(queue.back(), std::runtime_error);
+    EXPECT_THROW(queue.pop(), std::runtime_error);
+}

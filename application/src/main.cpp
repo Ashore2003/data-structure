@@ -1,6 +1,5 @@
 #include <iostream>
-#include <list>
 
 int main(int argc, char **argv) {
-    std::cout << "Hello, World!" << std::endl;
+    std::cout << "hello" << std::endl;
 }
