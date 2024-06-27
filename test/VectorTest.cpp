@@ -16,44 +16,38 @@ TEST_F(VectorTest, DefaultConstructor) {
 TEST_F(VectorTest, SizeConstructor) {
     userDefineDataStructure::vector<int> vec(5);
     EXPECT_EQ(vec.size(), 5);
-    for (int i = 0; i < 5; ++i) {
+    for (int i = 0; i < 5; ++i)
         EXPECT_EQ(vec[i], 0);
-    }
 }
 
 TEST_F(VectorTest, SizeValueConstructor) {
     userDefineDataStructure::vector<int> vec(3, 42);
     EXPECT_EQ(vec.size(), 3);
-    for (int i = 0; i < 3; ++i) {
+    for (int i = 0; i < 3; ++i)
         EXPECT_EQ(vec[i], 42);
-    }
 }
 
 TEST_F(VectorTest, InitializerListConstructor) {
     userDefineDataStructure::vector<int> vec = {1, 2, 3, 4, 5};
     EXPECT_EQ(vec.size(), 5);
-    for (int i = 0; i < 5; ++i) {
+    for (int i = 0; i < 5; ++i)
         EXPECT_EQ(vec[i], i + 1);
-    }
 }
 
 TEST_F(VectorTest, InitializerListAssignment) {
     int_vec = {10, 20, 30, 40, 50};
     EXPECT_EQ(int_vec.size(), 5);
-    for (int i = 0; i < 5; ++i) {
+    for (int i = 0; i < 5; ++i)
         EXPECT_EQ(int_vec[i], (i + 1) * 10);
-    }
 }
 
-// Test assignment
 TEST_F(VectorTest, CopyAssignment) {
     userDefineDataStructure::vector<int> vec1(3, 42);
     userDefineDataStructure::vector<int> vec2;
     vec2 = vec1;
     EXPECT_EQ(vec2.size(), 3);
-    for (int i = 0; i < 3; ++i) {
+    for (int i = 0; i < 3; ++i)
         EXPECT_EQ(vec2[i], 42);
-    }
 }
 
 TEST_F(VectorTest, MoveAssignment) {
@@ -61,13 +55,11 @@ TEST_F(VectorTest, MoveAssignment) {
     userDefineDataStructure::vector<int> vec2;
     vec2 = std::move(vec1);
     EXPECT_EQ(vec2.size(), 3);
-    for (int i = 0; i < 3; ++i) {
+    for (int i = 0; i < 3; ++i)
         EXPECT_EQ(vec2[i], 42);
-    }
     EXPECT_TRUE(vec1.empty());
 }
 
-// Test element access
 TEST_F(VectorTest, OperatorBracket) {
     int_vec = {1, 2, 3, 4, 5};
     EXPECT_EQ(int_vec[0], 1);
@@ -87,7 +79,6 @@ TEST_F(VectorTest, FrontBack) {
     EXPECT_EQ(int_vec.back(), 5);
 }
 
-// Test capacity
 TEST_F(VectorTest, Size) {
     EXPECT_EQ(int_vec.size(), 0);
     int_vec = {1, 2, 3, 4, 5};
@@ -106,7 +97,6 @@ TEST_F(VectorTest, Reserve) {
     EXPECT_EQ(int_vec.size(), 0);
 }
 
-// Test modifiers
 TEST_F(VectorTest, PushBack) {
     int_vec.push_back(1);
     EXPECT_EQ(int_vec.size(), 1);
@@ -153,17 +143,14 @@ TEST_F(VectorTest, ResizeWithValue) {
     EXPECT_EQ(int_vec[4], 42);
 }
 
-// Test iterators
 TEST_F(VectorTest, Iterators) {
     int_vec = {1, 2, 3, 4, 5};
     int sum = 0;
-    for (auto it = int_vec.begin(); it != int_vec.end(); ++it) {
+    for (auto it = int_vec.begin(); it != int_vec.end(); ++it)
         sum += *it;
-    }
     EXPECT_EQ(sum, 15);
 }
 
-// Test with non-trivial types
 TEST_F(VectorTest, StringVector) {
     string_vec.push_back("Hello");
     string_vec.push_back("World");
@@ -172,7 +159,6 @@ TEST_F(VectorTest, StringVector) {
     EXPECT_EQ(string_vec[1], "World");
 }
 
-// Test exception safety
 TEST_F(VectorTest, ExceptionSafety) {
     struct ThrowOnCopy {
         ThrowOnCopy() = default;
@@ -185,16 +171,14 @@ TEST_F(VectorTest, ExceptionSafety) {
 
     EXPECT_THROW({ vec.push_back(ThrowOnCopy()); }, std::runtime_error);
 
-    EXPECT_EQ(vec.size(), 5);// Size should remain unchanged
+    EXPECT_EQ(vec.size(), 5);
 }
 
-// Test large number of elements
 TEST_F(VectorTest, LargeNumberOfElements) {
     const size_t large_size = 1000000;
     int_vec.reserve(large_size);
-    for (size_t i = 0; i < large_size; ++i) {
+    for (size_t i = 0; i < large_size; ++i)
         int_vec.push_back(static_cast<int>(i));
-    }
     EXPECT_EQ(int_vec.size(), large_size);
     EXPECT_EQ(int_vec[large_size - 1], static_cast<int>(large_size - 1));
 }

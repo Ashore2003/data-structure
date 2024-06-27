@@ -1,7 +1,3 @@
-/**
- * @file vector.h
- * @brief Custom vector implementation similar to std::vector.
- */
 
 #pragma once
 
@@ -10,15 +6,20 @@
 #include <memory>
 #include <stdexcept>
 
-namespace userDefineDataStructure {
 
-    /**
-     * @class vector
-     * @brief A dynamic array implementation with similar interface to std::vector.
-     * 
-     * @tparam T The type of elements stored in the vector.
-     * @tparam Allocator The allocator used for all memory management.
-     */
+/**
+ * @class set
+ * @brief A Red-Black Tree based set implementation with an STL-like interface.
+ *
+ * @tparam Key The type of elements stored in the set.
+ * @tparam Compare A comparison function object type, defaults to std::less<Key>.
+ * @tparam Allocator The allocator type used for memory management, defaults to std::allocator<Key>.
+ *
+ * This class provides a self-balancing binary search tree implementation of a set,
+ * ensuring O(log n) complexity for insertion, deletion, and search operations.
+ * It maintains elements in sorted order and does not allow duplicate keys.
+ */
+namespace userDefineDataStructure {
     template<typename T, typename Allocator = std::allocator<T>>
     class vector {
     public:

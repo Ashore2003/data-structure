@@ -16,13 +16,12 @@ protected:
     }
 };
 
-// Test default constructor
 TEST_F(QueueTest, DefaultConstructor) {
     EXPECT_TRUE(queue.empty());
     EXPECT_EQ(queue.size(), 0);
 }
 
-// Test push and front
+
 TEST_F(QueueTest, PushAndFront) {
     queue.push(1);
     EXPECT_EQ(queue.front(), 1);
@@ -33,7 +32,7 @@ TEST_F(QueueTest, PushAndFront) {
     EXPECT_EQ(queue.size(), 2);
 }
 
-// Test push and back
+
 TEST_F(QueueTest, PushAndBack) {
     queue.push(1);
     EXPECT_EQ(queue.back(), 1);
@@ -44,7 +43,7 @@ TEST_F(QueueTest, PushAndBack) {
     EXPECT_EQ(queue.size(), 2);
 }
 
-// Test pop
+
 TEST_F(QueueTest, Pop) {
     queue.push(1);
     queue.push(2);
@@ -62,7 +61,6 @@ TEST_F(QueueTest, Pop) {
     EXPECT_TRUE(queue.empty());
 }
 
-// Test empty and size
 TEST_F(QueueTest, EmptyAndSize) {
     EXPECT_TRUE(queue.empty());
     EXPECT_EQ(queue.size(), 0);
@@ -81,7 +79,6 @@ TEST_F(QueueTest, EmptyAndSize) {
     EXPECT_EQ(queue.size(), 0);
 }
 
-// Test copy constructor
 TEST_F(QueueTest, CopyConstructor) {
     queue.push(1);
     queue.push(2);
@@ -93,7 +90,6 @@ TEST_F(QueueTest, CopyConstructor) {
     EXPECT_EQ(queue2.back(), 3);
 }
 
-// Test move constructor
 TEST_F(QueueTest, MoveConstructor) {
     queue.push(1);
     queue.push(2);
@@ -106,7 +102,6 @@ TEST_F(QueueTest, MoveConstructor) {
     EXPECT_TRUE(queue.empty());
 }
 
-// Test copy assignment
 TEST_F(QueueTest, CopyAssignment) {
     queue.push(1);
     queue.push(2);
@@ -119,7 +114,6 @@ TEST_F(QueueTest, CopyAssignment) {
     EXPECT_EQ(queue2.back(), 3);
 }
 
-// Test move assignment
 TEST_F(QueueTest, MoveAssignment) {
     queue.push(1);
     queue.push(2);
@@ -133,7 +127,6 @@ TEST_F(QueueTest, MoveAssignment) {
     EXPECT_TRUE(queue.empty());
 }
 
-// Test swap
 TEST_F(QueueTest, Swap) {
     queue.push(1);
     queue.push(2);
@@ -154,7 +147,6 @@ TEST_F(QueueTest, Swap) {
     EXPECT_EQ(queue2.back(), 2);
 }
 
-// Test exceptions
 TEST_F(QueueTest, Exceptions) {
     EXPECT_THROW(queue.front(), std::runtime_error);
     EXPECT_THROW(queue.back(), std::runtime_error);

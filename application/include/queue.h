@@ -2,16 +2,36 @@
 
 #include "list.h"
 
+/**
+* @class userDefineDataStructure::Queue
+* 
+* @brief A template class implementing a queue data structure using a list as the underlying container.
+* 
+* This class encapsulates standard queue operations such as enqueue (push), dequeue (pop), and accessing
+* the front and back elements. It leverages the `userDefineDataStructure::List` for efficient element management,
+* benefiting from its dynamic size and bidirectional access.
+* 
+* @tparam T The type of elements stored in the queue.
+* 
+* Key features:
+* - FIFO (First-In, First-Out) logic for element access.
+* - Constant time complexity for insertion and deletion operations.
+* - Access to both the front and back elements.
+* - Utilizes the List's capabilities for automatic memory management and iterator support.
+* 
+* Usage example:
+* @code
+* userDefineDataStructure::Queue<int> myQueue;
+* myQueue.push(10);
+* myQueue.push(20);
+* myQueue.pop();
+* std::cout << "Front element: " << myQueue.front();  // Output: Front element: 20
+* @endcode
+* 
+* @warning Since this queue implementation uses a list, it does not provide constant time access
+*          to random elements like an array-based implementation would.
+*/
 namespace userDefineDataStructure {
-
-    /**
-    * @brief A template class implementing a queue data structure.
-    *
-    * This queue is implemented using a list as the underlying container.
-    * It provides standard queue operations such as push, pop, front, and back.
-    *
-    * @tparam T The type of elements stored in the queue.
-    */
     template<typename T>
     class Queue {
     private:
@@ -85,9 +105,8 @@ namespace userDefineDataStructure {
         * @throws std::runtime_error if the queue is empty.
         */
         void pop() {
-            if (empty()) {
+            if (empty())
                 throw std::runtime_error("Queue is empty");
-            }
             data.pop_front();
         }
 
@@ -98,9 +117,8 @@ namespace userDefineDataStructure {
         * @throws std::runtime_error if the queue is empty.
         */
         T &front() {
-            if (empty()) {
+            if (empty())
                 throw std::runtime_error("Queue is empty");
-            }
             return data.front();
         }
 
@@ -111,9 +129,8 @@ namespace userDefineDataStructure {
         * @throws std::runtime_error if the queue is empty.
         */
         const T &front() const {
-            if (empty()) {
+            if (empty())
                 throw std::runtime_error("Queue is empty");
-            }
             return data.front();
         }
 
@@ -124,9 +141,8 @@ namespace userDefineDataStructure {
         * @throws std::runtime_error if the queue is empty.
         */
         T &back() {
-            if (empty()) {
+            if (empty())
                 throw std::runtime_error("Queue is empty");
-            }
             return data.back();
         }
 
@@ -137,9 +153,8 @@ namespace userDefineDataStructure {
         * @throws std::runtime_error if the queue is empty.
         */
         const T &back() const {
-            if (empty()) {
+            if (empty())
                 throw std::runtime_error("Queue is empty");
-            }
             return data.back();
         }
 

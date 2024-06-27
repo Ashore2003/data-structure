@@ -1,7 +1,3 @@
-/**
- * @file TrieHash.h
- * @brief Trie data structure implemented with hash maps for fast prefix searching.
- */
 
 #pragma once
 
@@ -11,6 +7,47 @@
 #include <unordered_map>
 #include <vector>
 
+/**
+ * @class userDefineDataStructure::TrieHash
+ * 
+ * @brief A Trie (prefix tree) implementation using hash maps for efficient string operations.
+ * 
+ * This class provides a Trie data structure implementation using hash maps for its internal
+ * representation. It offers efficient operations for inserting, searching, and deleting strings,
+ * as well as prefix-based word prediction. The use of hash maps allows for faster child node
+ * lookups compared to traditional array-based Trie implementations.
+ * 
+ * Key features:
+ * - Efficient insertion and search operations, typically O(k) where k is the length of the string.
+ * - Prefix-based word prediction functionality.
+ * - Memory-efficient storage of strings with common prefixes.
+ * - Supports deletion of words while maintaining the integrity of the Trie.
+ * - Provides methods to print all stored words and check for words with a given prefix.
+ * 
+ * Usage example:
+ * @code
+ * userDefineDataStructure::TrieHash trie;
+ * trie.insert("apple");
+ * trie.insert("app");
+ * trie.insert("application");
+ * 
+ * std::cout << trie.search("apple") << std::endl;  // Output: 1 (true)
+ * std::cout << trie.startWith("app") << std::endl;  // Output: 1 (true)
+ * 
+ * auto predictions = trie.predictWords("app");
+ * for (const auto& word : predictions) {
+ *     std::cout << word << " ";
+ * }
+ * // Output: app apple application
+ * 
+ * trie.deleteWord("apple");
+ * std::cout << trie.search("apple") << std::endl;  // Output: 0 (false)
+ * @endcode
+ * 
+ * @note This implementation uses smart pointers (std::unique_ptr) for automatic memory management.
+ * 
+ * @warning This class is not thread-safe. External synchronization is required for concurrent access.
+ */
 namespace userDefineDataStructure {
     /**
     * @class TrieHash

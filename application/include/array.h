@@ -5,14 +5,38 @@
 #include <stdexcept>
 #include <utility>
 
+/**
+* @class userDefineDataStructure::Array
+* 
+* @brief A fixed-size array class template with STL-like interface.
+* 
+* This class provides a generic array implementation with
+* support for standard container operations such as begin, end, size, and element access
+* with bounds checking. It encapsulates a native array for fast access and simple use cases.
+* 
+* @tparam T The type of elements stored in the array.
+* @tparam N The number of elements in the array.
+* 
+* Key features:
+* - Constant time access to elements via direct indexing.
+* - Support for range-based for loops via iterators.
+* - Bounds-checked element access with the at() method.
+* - Compile-time fixed size with no dynamic memory allocation.
+* - Support for aggregate initialization.
+* 
+* Usage example:
+* @code
+* userDefineDataStructure::Array<int, 3> myArray{{1, 2, 3}};
+* for(const auto& item : myArray) {
+*     std::cout << item << " ";
+* }
+* // Output: 1 2 3
+* @endcode
+* 
+* @warning This class does not manage resources beyond its static allocation; thus,
+*          it is not suitable for managing dynamic resources without proper wrappers.
+*/
 namespace userDefineDataStructure {
-
-    /**
-    * @brief A fixed-size array class template.
-    *
-    * @tparam T The type of elements stored in the array.
-    * @tparam N The number of elements in the array.
-    */
     template<typename T, std::size_t N>
     class Array {
     public:

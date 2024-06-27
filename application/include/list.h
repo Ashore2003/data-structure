@@ -36,9 +36,6 @@
  * // Output: 0 1 2
  * @endcode
  * 
- * @note This implementation uses std::unique_ptr for automatic memory management
- *       of the nodes, which helps prevent memory leaks.
- * 
  * @warning This class is not thread-safe. External synchronization is required
  *          for concurrent access.
  */
@@ -46,16 +43,16 @@
 namespace userDefineDataStructure {
 
     /**
- * @brief A doubly linked list implementation.
- * 
- * @tparam T The type of elements stored in the list.
- */
+    * @brief A doubly linked list implementation.
+    * 
+    * @tparam T The type of elements stored in the list.
+    */
     template<typename T>
     class List {
     private:
         /**
-     * @brief Node structure for the linked list.
-     */
+        * @brief Node structure for the linked list.
+        */
         struct Node {
             T data;                    ///< Data stored in the node
             std::unique_ptr<Node> next;///< Smart pointer to the next node
@@ -241,6 +238,57 @@ namespace userDefineDataStructure {
             head.reset();
             tail = nullptr;
             list_size = 0;
+        }
+
+        /**
+        * @brief Remove all elements with the specified value from the list.
+        *
+        * This function traverses the list and removes all nodes that contain
+        * the specified value. It properly handles cases where the removed node
+        * is at the beginning or end of the list.
+        *
+        * @param value The value to be removed from the list.
+        * @return size_t The number of elements removed.
+        *
+        * Time Complexity: O(n), where n is the number of elements in the list.
+        * Space Complexity: O(1)
+        */
+        size_t remove(const T &value) {
+            size_t removed_count = 0;
+            Node *current = head.get();
+            Node *prev = nullptr;
+
+            while (current != nullptr) {
+                if (current->data == value) {
+                    ++removed_count;
+
+                    if (prev == nullptr) {
+                        // Removing the head node
+                        head = std::move(current->next);
+                        if (head)
+                            head->prev = nullptr;
+                        else
+                            // List is now empty
+                            tail = nullptr;
+                        current = head.get();
+                    } else {
+                        // Removing a non-head node
+                        prev->next = std::move(current->next);
+                        if (prev->next)
+                            prev->next->prev = prev;
+                        else
+                            // Removed the last node
+                            tail = prev;
+                        current = prev->next.get();
+                    }
+                } else {
+                    prev = current;
+                    current = current->next.get();
+                }
+            }
+
+            list_size -= removed_count;
+            return removed_count;
         }
 
         /**
